@@ -51,6 +51,7 @@ def WriteHTML(filename, groups, net, headings, prefs):
     nFitted = sum([g.getCount() for g in groups if g.isFitted()])
     nBuild = nFitted * prefs.boards
 
+    link_datasheet = prefs.as_link
     link_digikey = None
     if prefs.digikey_link:
         link_digikey = prefs.digikey_link.split("\t")
@@ -129,6 +130,10 @@ def WriteHTML(filename, groups, net, headings, prefs):
                 if link_digikey and headings[n] in link_digikey:
                     r = '<a href="http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=' + r + '">' + r + '</a>'
 
+                # Link this column to the datasheet?
+                if link_datasheet and headings[n] == link_datasheet:
+                    r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
+
                 if (len(r) == 0) or (r.strip() == "~"):
                     bg = BG_EMPTY
                 else:
@@ -172,10 +177,15 @@ def WriteHTML(filename, groups, net, headings, prefs):
                     html.write('\t<td align="center">{n}</td>\n'.format(n=rowCount))
  
                 for n, r in enumerate(row):
+
+                    # Link this column to the datasheet?
+                    if link_datasheet and headings[n] == link_datasheet:
+                        r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
+
                     if link_digikey and headings[n] in link_digikey:
                         r = '<a href="http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=' + r + '">' + r + '</a>'
 
-                    if len(r) == 0:
+                    if (len(r) == 0) or (r.strip() == "~"):
                         bg = BG_EMPTY
                     else:
                         bg = bgColor(headings[n])
