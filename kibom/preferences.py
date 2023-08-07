@@ -153,7 +153,7 @@ class BomPref:
             debug.error("{f} is not a valid file!".format(f=file))
             return
 
-        cf = ConfigParser.RawConfigParser(allow_no_value=True)
+        cf = ConfigParser.RawConfigParser(allow_no_value=True, delimiters=("=",))
         self.parser = cf
         cf.optionxform = str
 
