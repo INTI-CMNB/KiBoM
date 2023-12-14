@@ -155,7 +155,7 @@ class BomPref:
             debug.error("{f} is not a valid file!".format(f=file))
             return
 
-        cf = ConfigParser.RawConfigParser(allow_no_value=True, delimiters=("=",))
+        cf = ConfigParser.RawConfigParser(allow_no_value=True)
         self.parser = cf
         cf.optionxform = str
 
@@ -195,7 +195,10 @@ class BomPref:
 
         # Read out ignored-rows
         if self.SECTION_IGNORE in cf.sections():
-            self.ignore = [i.lower() for i in cf.options(self.SECTION_IGNORE)]
+        if self.SECTION_IGNORE in cf.sections():
+            self.ignore = [
+                key.lower() if value is None else (key+value).lower() for key, value in cf.items(self.SECTION_IGNORE)
+            ]
 
         # Read out column order
         if self.SECTION_COLUMN_ORDER in cf.sections():
