@@ -1,8 +1,7 @@
 # KiBoM
 
-[![PyPi version](https://pypip.in/v/kibom/badge.png)](https://pypi.org/project/kibom/)
+[![PyPi version](https://img.shields.io/pypi/v/kibot?style=plastic&logo=pypi)](https://pypi.org/project/kibom/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Python 2](https://github.com/INTI-CMNB/KiBoM/workflows/Python%202/badge.svg)
 ![Python 3](https://github.com/INTI-CMNB/KiBoM/workflows/Python%203/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/INTI-CMNB/KiBoM/badge.svg?branch=master&service=github)](https://coveralls.io/github/INTI-CMNB/KiBoM?branch=master)
 
@@ -300,7 +299,8 @@ BoM generation options can be configured (on a per-project basis) by editing the
 * `GROUP_FIELDS` : A list of component fields used to group components together.
 * `COMPONENT_ALIASES` : A list of space-separated values which allows multiple schematic symbol visualisations to be consolidated.
 * `REGEX_INCLUDE` : A list of regular expressions used to explicitly include components. If there are no regex here, all components pass this test. If there are regex here, then a component must match at least one of them to be included in the BoM.
-* `REGEX_EXCLUDE` : If a component matches any of these regular expressions, it will *not* be included in the BoM.
+* `REGEX_EXCLUDE` : If a component matches any of these regular expressions, it will *not* be included in the BoM. Important: the `REGEX_INCLUDE` section has more precedence.
+
 
 Example configuration file (.ini format) *default values shown*
 

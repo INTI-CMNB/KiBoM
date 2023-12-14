@@ -354,7 +354,8 @@ class Component():
         # First, check for the 'dnp' attribute (added in KiCad 7.0)
         for child in self.element.getChildren():
             if child.name == 'property':
-                if child.attributes.get('name', '').lower() == 'dnp':
+                name = child.attributes.get('name', '').lower()
+                if name == 'dnp' or name == 'exclude_from_bom':
                     return False
 
         # Check the value field first
@@ -424,7 +425,7 @@ class Component():
 
         for reg in self.prefs.regExcludes:
 
-            if type(reg) == list and len(reg) == 2:
+            if type(reg) is list and len(reg) == 2:
                 field_name, regex = reg
                 field_value = self.getField(field_name)
 
@@ -456,7 +457,7 @@ class Component():
 
         for reg in self.prefs.regIncludes:
 
-            if type(reg) == list and len(reg) == 2:
+            if type(reg) is list and len(reg) == 2:
                 field_name, regex = reg
                 field_value = self.getField(field_name)
 
